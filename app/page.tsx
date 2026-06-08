@@ -72,24 +72,45 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="bg-gradient-to-br from-blue-50 to-blue-100 py-20">
-        <div className="container mx-auto px-4">
+      <section id="inicio" className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 py-20 overflow-hidden">
+        {/* Background decorative blobs */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-400 opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-100">
-                Seguros de Salud Privados en RD
+              <Badge className="mb-4 bg-orange-500 text-white hover:bg-orange-500 border-0">
+                ✓ Seguros de Salud Privados en RD
               </Badge>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Seguro de Salud Privado en RD –<span className="text-blue-600"> Calidad y Respaldo</span>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                Seguro de Salud Privado en RD –<span className="text-orange-400"> Calidad y Respaldo</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-lg text-blue-100 mb-8">
                 Cotiza y compara planes de Mapfre Salud ARS y Humano Seguros en un solo lugar. Protege a tu familia con
                 la mejor cobertura médica privada en República Dominicana.
               </p>
+
+              {/* Trust indicators row */}
+              <div className="flex flex-wrap gap-4 mb-8">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  <span className="text-white text-sm font-medium">Sin costo de asesoría</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  <span className="text-white text-sm font-medium">Respuesta en 24h</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                  <span className="text-white text-sm font-medium">15+ años de experiencia</span>
+                </div>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-orange-500 hover:bg-orange-600 text-white"
+                  className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30"
                   onClick={() => {
                     const element = document.getElementById("cotizar")
                     if (element) {
@@ -98,30 +119,71 @@ export default function HomePage() {
                   }}
                 >
                   <MessageCircle className="mr-2 h-5 w-5" />
-                  Cotiza Ahora
+                  Cotiza Ahora — Es Gratis
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent"
+                  className="border-white/40 text-white hover:bg-white/10 bg-transparent"
                   onClick={() => window.open("tel:+1(809)965-2727", "_self")}
                 >
                   <Phone className="mr-2 h-5 w-5" />
                   Llamar Ahora
                 </Button>
               </div>
-
-              {/* Social Media CTA in Hero */}
             </div>
-            <div className="relative">
-              <OptimizedImage
-                src="/images/SEGURO_MEDICO_FAMILIAR_RD.webp"
-                alt="Familia protegida con seguro de salud privado en República Dominicana"
-                width={500}
-                height={400}
-                className="rounded-lg shadow-xl"
-                priority={true}
-              />
+
+            {/* Image column with decorative framing */}
+            <div className="relative flex justify-center lg:justify-end">
+              {/* Decorative ring behind image */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[420px] h-[420px] rounded-full border-2 border-white/10" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-[480px] h-[480px] rounded-full border border-white/5" />
+              </div>
+
+              <div className="relative w-full max-w-[520px]">
+                {/* Glow effect behind the image */}
+                <div className="absolute inset-4 bg-blue-400 opacity-20 blur-2xl rounded-2xl" />
+
+                <OptimizedImage
+                  src="/images/SEGURO_SALUD_LOCAL_RD.webp"
+                  alt="Familia protegida con seguro de salud privado en República Dominicana"
+                  width={520}
+                  height={420}
+                  className="rounded-2xl shadow-2xl ring-1 ring-white/20 relative"
+                  priority={true}
+                />
+
+                {/* Floating card — top left */}
+                <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
+                  <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-gray-900 leading-tight">5,000+</div>
+                    <div className="text-xs text-gray-500">Familias Protegidas</div>
+                  </div>
+                </div>
+
+                {/* Floating card — bottom right */}
+                <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
+                  <div className="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-gray-900 leading-tight">Calificación 5★</div>
+                    <div className="text-xs text-gray-500">Clientes satisfechos</div>
+                  </div>
+                </div>
+
+                {/* Floating badge — bottom left */}
+                <div className="absolute -bottom-2 left-6 bg-blue-600 text-white rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-lg text-sm font-semibold">
+                  <Clock className="h-3.5 w-3.5" />
+                  Atención 24/7
+                </div>
+              </div>
             </div>
           </div>
         </div>

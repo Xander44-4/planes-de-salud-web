@@ -18,7 +18,7 @@ const jsonLd = {
   url: "https://planessalud.com.do",
   telephone: "+18099652727",
   email: "Contacto@cas.com.do",
-  image: "https://planessalud.com.do/images/SEGURO_MEDICO_FAMILIAR_RD.webp",
+  image: "https://planessalud.com.do/images/SEGURO_SALUD_LOCAL_RD.webp",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Torre Acrópolis, 8vo. Piso, Av. Winston Churchill",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     siteName: "PlanesSalud.com.do",
     images: [
       {
-        url: "/images/SEGURO_MEDICO_FAMILIAR_RD.webp",
+        url: "/images/SEGURO_SALUD_LOCAL_RD.webp",
         width: 1200,
         height: 630,
         alt: "Seguro médico familiar en República Dominicana – PlanesSalud.com.do",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PlanesSalud.com.do – Seguros de Salud Privados en RD",
     description: "Cotiza y compara planes de seguro de salud privado en República Dominicana.",
-    images: ["/images/SEGURO_MEDICO_FAMILIAR_RD.webp"],
+    images: ["/images/SEGURO_SALUD_LOCAL_RD.webp"],
   },
 }
 
