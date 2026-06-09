@@ -52,6 +52,9 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
+  verification: {
+    google: "EsF40iA0Jwdvm01FJwV5Q2a5BxF8ltRwEbAEsIlzIys",
+  },
   robots: { index: true, follow: true },
   alternates: {
     canonical: "https://planessalud.com.do",
