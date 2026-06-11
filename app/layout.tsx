@@ -9,7 +9,7 @@ const inter = Inter({
   preload: true,
 })
 
-const jsonLd = {
+const insuranceAgencyLd = {
   "@context": "https://schema.org",
   "@type": "InsuranceAgency",
   name: "PlanesSalud.com.do – CAS Corredores Asesores de Seguros SRL",
@@ -25,16 +25,31 @@ const jsonLd = {
     addressLocality: "Santo Domingo",
     addressCountry: "DO",
   },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "08:00",
-    closes: "18:00",
-  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "18:00",
+    },
+  ],
   sameAs: ["https://www.instagram.com/cassegurosrd/"],
   areaServed: {
     "@type": "Country",
     name: "República Dominicana",
+  },
+}
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "PlanesSalud.com.do",
+  url: "https://planessalud.com.do",
+  description:
+    "Cotiza y compara planes de seguro de salud privado en República Dominicana.",
+  publisher: {
+    "@type": "Organization",
+    name: "CAS Corredores Asesores de Seguros SRL",
   },
 }
 
@@ -94,7 +109,11 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(insuranceAgencyLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
       </head>
       <body className={inter.className}>{children}</body>

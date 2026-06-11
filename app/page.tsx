@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -24,9 +22,67 @@ import { SocialMediaFloating } from "@/components/social-media-floating"
 import { OptimizedImage } from "@/components/optimized-image"
 import { LazySection } from "@/components/lazy-section"
 
+const WA_BASE = "https://wa.me/+18099652727"
+
+function waUrl(message: string) {
+  return `${WA_BASE}?text=${encodeURIComponent(message)}`
+}
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "¿Cuánto cuesta un seguro de salud privado en República Dominicana?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "El precio varía según la aseguradora, el plan y la edad del asegurado. Mapfre Salud ARS ofrece planes desde RD$2,753/mes. Humano Seguros y otras ARS tienen rangos similares. Te recomendamos cotizar gratis con nuestros asesores para obtener el precio exacto según tu perfil.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Cuáles son las mejores aseguradoras de salud privadas en RD?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Las principales aseguradoras privadas de salud en República Dominicana son Mapfre Salud ARS y Humano Seguros. También están disponibles ARS Universal, ARS Monumental, ARS Futuro, ARS Yunen y ARS Reservas. La mejor opción depende de tu presupuesto, red médica preferida y necesidades de cobertura.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Qué diferencia hay entre un seguro ARS y un seguro privado?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Un ARS (Administradora de Riesgos de Salud) es una entidad regulada por la SISALRIL que administra el Seguro Familiar de Salud del sistema contributivo público. Un seguro privado complementario ofrece coberturas adicionales, acceso a una red médica más amplia, tiempos de espera menores y beneficios premium como telemedicina y cobertura internacional.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿El seguro de salud privado en RD cubre el extranjero?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "La mayoría de los planes locales no incluyen cobertura internacional. Solo los planes premium de algunas aseguradoras incluyen seguro viajero básico. Para cobertura global completa en EE.UU., Europa y más de 190 países, se recomienda contratar un seguro médico internacional especializado.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Cómo cotizo un seguro de salud privado en República Dominicana?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Puedes cotizar de forma gratuita completando el formulario en nuestra página, llamando al +1(809)965-2727, o enviándonos un mensaje por WhatsApp. Nuestros asesores de CAS Corredores Asesores de Seguros te prepararan una cotización personalizada sin costo ni compromiso.",
+      },
+    },
+  ],
+}
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+
       {/* Header */}
       <header className="bg-blue-900 text-white py-4 sticky top-0 z-50">
         <div className="container mx-auto px-4 flex items-center justify-between">
@@ -54,18 +110,24 @@ export default function HomePage() {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Phone className="h-4 w-4" />
-              <a href="tel:+1(809)965-2727" className="hover:text-blue-400 transition-colors">
+              <a href="tel:+18099652727" className="hover:text-blue-400 transition-colors">
                 +1(809)965-2727
               </a>
             </div>
             <Button
+              asChild
               size="sm"
               variant="outline"
               className="border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white bg-transparent hidden sm:flex"
-              onClick={() => window.open("https://www.instagram.com/cassegurosrd/", "_blank")}
             >
-              <Instagram className="h-4 w-4 mr-1" />
-              Síguenos
+              <a
+                href="https://www.instagram.com/cassegurosrd/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram className="h-4 w-4 mr-1" />
+                Síguenos
+              </a>
             </Button>
           </div>
         </div>
@@ -73,7 +135,6 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section id="inicio" className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 py-20 overflow-hidden">
-        {/* Background decorative blobs */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-400 opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
 
@@ -91,7 +152,6 @@ export default function HomePage() {
                 la mejor cobertura médica privada en República Dominicana.
               </p>
 
-              {/* Trust indicators row */}
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
                   <CheckCircle className="h-4 w-4 text-green-400" />
@@ -109,33 +169,30 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
+                  asChild
                   size="lg"
                   className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30"
-                  onClick={() => {
-                    const element = document.getElementById("cotizar")
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" })
-                    }
-                  }}
                 >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  Cotiza Ahora — Es Gratis
+                  <a href="#cotizar">
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Cotiza Ahora — Es Gratis
+                  </a>
                 </Button>
                 <Button
+                  asChild
                   size="lg"
                   variant="outline"
                   className="border-white/40 text-white hover:bg-white/10 bg-transparent"
-                  onClick={() => window.open("tel:+1(809)965-2727", "_self")}
                 >
-                  <Phone className="mr-2 h-5 w-5" />
-                  Llamar Ahora
+                  <a href="tel:+18099652727">
+                    <Phone className="mr-2 h-5 w-5" />
+                    Llamar Ahora
+                  </a>
                 </Button>
               </div>
             </div>
 
-            {/* Image column with decorative framing */}
             <div className="relative flex justify-center lg:justify-end">
-              {/* Decorative ring behind image */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-[420px] h-[420px] rounded-full border-2 border-white/10" />
               </div>
@@ -144,7 +201,6 @@ export default function HomePage() {
               </div>
 
               <div className="relative w-full max-w-[520px]">
-                {/* Glow effect behind the image */}
                 <div className="absolute inset-4 bg-blue-400 opacity-20 blur-2xl rounded-2xl" />
 
                 <OptimizedImage
@@ -156,7 +212,6 @@ export default function HomePage() {
                   priority={true}
                 />
 
-                {/* Floating card — top left */}
                 <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
                   <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Users className="h-5 w-5 text-green-600" />
@@ -167,7 +222,6 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Floating card — bottom right */}
                 <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
                   <div className="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
@@ -178,7 +232,6 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Floating badge — bottom left */}
                 <div className="absolute -bottom-2 left-6 bg-blue-600 text-white rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-lg text-sm font-semibold">
                   <Clock className="h-3.5 w-3.5" />
                   Atención 24/7
@@ -260,16 +313,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="mt-6 pt-6 border-t">
-                  <Button
-                    className="w-full bg-red-600 hover:bg-red-700"
-                    onClick={() => {
-                      const element = document.getElementById("cotizar")
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" })
-                      }
-                    }}
-                  >
-                    Cotizar Mapfre Salud ARS
+                  <Button asChild className="w-full bg-red-600 hover:bg-red-700">
+                    <Link href="/planes-mapfre">Ver Planes Mapfre Salud ARS</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -308,16 +353,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="mt-6 pt-6 border-t">
-                  <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700"
-                    onClick={() => {
-                      const element = document.getElementById("cotizar")
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" })
-                      }
-                    }}
-                  >
-                    Cotizar Humano Seguros
+                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                    <Link href="/planes-humano">Ver Planes Humano Seguros</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -329,19 +366,14 @@ export default function HomePage() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Otras ARS Disponibles</h3>
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
               {["ARS Universal", "ARS Monumental", "ARS Futuro", "ARS Yunen", "ARS Reservas"].map((ars) => (
-                <div
+                <a
                   key={ars}
-                  className="text-center p-4 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                  onClick={() => {
-                    const element = document.getElementById("cotizar")
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" })
-                    }
-                  }}
+                  href="#cotizar"
+                  className="text-center p-4 border rounded-lg hover:bg-gray-50 transition-colors block"
                 >
                   <Shield className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                   <div className="font-medium text-gray-900">{ars}</div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -446,16 +478,14 @@ export default function HomePage() {
                     <li>• Beneficios por muerte accidental</li>
                     <li>• Proceso de reclamación ágil</li>
                   </ul>
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent"
-                    onClick={() => {
-                      const message = "Hola, me interesa obtener más información sobre Seguro de Vida en USD."
-                      const whatsappUrl = `https://wa.me/+18099652727?text=${encodeURIComponent(message)}`
-                      window.open(whatsappUrl, "_blank")
-                    }}
-                  >
-                    Más Información
+                  <Button asChild variant="outline" className="w-full bg-transparent">
+                    <a
+                      href={waUrl("Hola, me interesa obtener más información sobre Seguro de Vida en USD.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Más Información
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -475,17 +505,14 @@ export default function HomePage() {
                     <li>• Cobertura desde $500,000 USD</li>
                     <li>• Sin períodos de carencia largos</li>
                   </ul>
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent"
-                    onClick={() => {
-                      const message =
-                        "Hola, me interesa obtener más información sobre cobertura para Enfermedades Graves."
-                      const whatsappUrl = `https://wa.me/+18099652727?text=${encodeURIComponent(message)}`
-                      window.open(whatsappUrl, "_blank")
-                    }}
-                  >
-                    Más Información
+                  <Button asChild variant="outline" className="w-full bg-transparent">
+                    <a
+                      href={waUrl("Hola, me interesa obtener más información sobre cobertura para Enfermedades Graves.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Más Información
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -505,16 +532,14 @@ export default function HomePage() {
                     <li>• Gastos médicos por accidentes</li>
                     <li>• Indemnización por hospitalización</li>
                   </ul>
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent"
-                    onClick={() => {
-                      const message = "Hola, me interesa obtener más información sobre Seguro de Accidentes Personales."
-                      const whatsappUrl = `https://wa.me/+18099652727?text=${encodeURIComponent(message)}`
-                      window.open(whatsappUrl, "_blank")
-                    }}
-                  >
-                    Más Información
+                  <Button asChild variant="outline" className="w-full bg-transparent">
+                    <a
+                      href={waUrl("Hola, me interesa obtener más información sobre Seguro de Accidentes Personales.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Más Información
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -598,6 +623,49 @@ export default function HomePage() {
         </section>
       </LazySection>
 
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Preguntas Frecuentes</h2>
+            <p className="text-xl text-gray-600">Todo lo que necesitas saber sobre seguros de salud privados en RD</p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: "¿Cuánto cuesta un seguro de salud privado en República Dominicana?",
+                a: "El precio varía según la aseguradora, el plan y la edad del asegurado. Mapfre Salud ARS ofrece planes desde RD$2,753/mes. Te recomendamos cotizar gratis con nuestros asesores para obtener el precio exacto según tu perfil.",
+              },
+              {
+                q: "¿Cuáles son las mejores aseguradoras de salud privadas en RD?",
+                a: "Las principales son Mapfre Salud ARS y Humano Seguros. También están disponibles ARS Universal, ARS Monumental, ARS Futuro, ARS Yunen y ARS Reservas. La mejor opción depende de tu presupuesto y necesidades de cobertura.",
+              },
+              {
+                q: "¿Qué diferencia hay entre un seguro ARS y un seguro privado?",
+                a: "Un ARS administra el Seguro Familiar de Salud del sistema contributivo público. Un seguro privado complementario ofrece coberturas adicionales, red médica más amplia, tiempos de espera menores y beneficios premium como telemedicina.",
+              },
+              {
+                q: "¿El seguro de salud privado en RD cubre el extranjero?",
+                a: "La mayoría de los planes locales no incluyen cobertura internacional. Para cobertura global completa en EE.UU., Europa y más de 190 países, se recomienda un seguro médico internacional especializado.",
+              },
+              {
+                q: "¿Cómo cotizo un seguro de salud privado en República Dominicana?",
+                a: "Completa el formulario en esta página, llama al +1(809)965-2727, o contáctanos por WhatsApp. Nuestros asesores de CAS Seguros te prepararán una cotización personalizada sin costo ni compromiso.",
+              },
+            ].map(({ q, a }) => (
+              <details key={q} className="bg-white rounded-lg border border-gray-200 group">
+                <summary className="flex justify-between items-center cursor-pointer p-6 font-semibold text-gray-900 list-none">
+                  {q}
+                  <span className="ml-4 text-blue-600 flex-shrink-0 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="px-6 pb-6 text-gray-600">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 text-center">
@@ -607,27 +675,26 @@ export default function HomePage() {
             perfecto para tus necesidades.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
-              onClick={() => {
-                const message =
-                  "Hola, me interesa obtener información sobre seguros de salud privados en República Dominicana."
-                const whatsappUrl = `https://wa.me/+18099652727?text=${encodeURIComponent(message)}`
-                window.open(whatsappUrl, "_blank")
-              }}
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Cotizar por WhatsApp
+            <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+              <a
+                href={waUrl("Hola, me interesa obtener información sobre seguros de salud privados en República Dominicana.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Cotizar por WhatsApp
+              </a>
             </Button>
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
-              onClick={() => window.open("tel:+1(809)965-2727", "_self")}
             >
-              <Phone className="mr-2 h-5 w-5" />
-              Llamar Ahora
+              <a href="tel:+18099652727">
+                <Phone className="mr-2 h-5 w-5" />
+                Llamar Ahora
+              </a>
             </Button>
           </div>
         </div>
@@ -652,21 +719,26 @@ export default function HomePage() {
               </div>
               <div className="flex items-center space-x-2 text-gray-400 mt-4">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+1(809)965-2727" className="hover:text-blue-400 transition-colors">
+                <a href="tel:+18099652727" className="hover:text-blue-400 transition-colors">
                   +1(809)965-2727
                 </a>
               </div>
 
-              {/* Social Media in Footer */}
               <div className="mt-6">
                 <p className="text-sm text-gray-400 mb-3">Síguenos en redes sociales:</p>
                 <Button
+                  asChild
                   size="sm"
                   className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
-                  onClick={() => window.open("https://www.instagram.com/cassegurosrd/", "_blank")}
                 >
-                  <Instagram className="h-4 w-4 mr-2" />
-                  @cassegurosrd
+                  <a
+                    href="https://www.instagram.com/cassegurosrd/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Instagram className="h-4 w-4 mr-2" />
+                    @cassegurosrd
+                  </a>
                 </Button>
               </div>
             </div>
@@ -675,24 +747,24 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Aseguradoras</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/planes-mapfre" className="hover:text-white transition-colors">
                     Mapfre Salud ARS
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/planes-humano" className="hover:text-white transition-colors">
                     Humano Seguros
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <a href="#cotizar" className="hover:text-white transition-colors">
                     ARS Universal
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <a href="#cotizar" className="hover:text-white transition-colors">
                     ARS Monumental
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -701,24 +773,24 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Servicios</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/" className="hover:text-white transition-colors">
                     Seguro de Salud
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/seguro-internacional" className="hover:text-white transition-colors">
                     Seguro Internacional
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <a href="#cotizar" className="hover:text-white transition-colors">
                     Seguro de Vida
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <a href="#cotizar" className="hover:text-white transition-colors">
                     Enfermedades Graves
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -729,7 +801,7 @@ export default function HomePage() {
                 <li>Torre Acrópolis, 8vo. Piso, Av. Winston Churchill, Santo Domingo.</li>
                 <li>Contacto@cas.com.do</li>
                 <li>
-                  <a href="tel:+1(809)965-2727" className="hover:text-blue-400 transition-colors">
+                  <a href="tel:+18099652727" className="hover:text-blue-400 transition-colors">
                     +1(809)965-2727
                   </a>
                 </li>
@@ -739,7 +811,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>© 2025 PlanesSalud.com.do. Todos los derechos reservados.</p>
+            <p>© {new Date().getFullYear()} PlanesSalud.com.do. Todos los derechos reservados.</p>
             <p className="mt-2 text-sm">
               Síguenos en Instagram:
               <a
